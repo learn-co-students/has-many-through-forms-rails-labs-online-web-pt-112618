@@ -4,7 +4,7 @@
 
 <h2>Add a comment to this post</h2>
 
-<% form_for @post.comments.build do |f| %>
+<%= form_for @post.comments.build do |f| %>
 
 	<%= f.label "Your comment" %>
 	<%= f.text_field :content %>
