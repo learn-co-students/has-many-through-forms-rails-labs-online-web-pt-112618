@@ -1,1 +1,36 @@
+<h1><%= @post.title %></h1>
 
+  <p> <%= @post.content %> </p>
+
+  Categories: <br />
+  <ul>
+    <% @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+    <% end %>
+</ul>
+
+Comments:<br />
+<ul>
+  <% @post.comments.each do |c| %>
+  <li><%= c.content %></li>
+  <% end %>
+</ul>
+
+ Users:<br />
+<ul>
+  <% @post.users.uniq.each do |u| %>
+  <li><%= link_to u.username, user_path(u) %>
+    <% end %>
+</ul>
+
+
+
+ <%= form_for @comment do |f| %>
+  <%= f.text_area :content %>
+
+   <%= collection_select(:comment, :user_id, User.all, :id, :username) %>
+
+   <input type="text" id="comment_user_attributes_username" name="comment[users_attributes][username]" />
+
+   <%= f.submit %>
+<% end %>
