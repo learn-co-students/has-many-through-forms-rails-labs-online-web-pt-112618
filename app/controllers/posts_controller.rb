@@ -9,6 +9,9 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    2.times do  #create two input fields
+      @post.categories.build
+    end
   end
 
   def create
@@ -19,6 +22,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, category_ids: [], categories_attributes: [:name])
   end
 end
