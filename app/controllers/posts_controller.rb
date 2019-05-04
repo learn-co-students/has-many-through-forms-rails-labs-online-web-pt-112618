@@ -9,6 +9,8 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    2.times do
+      @post.categories.build
   end
 
   def create
@@ -16,9 +18,8 @@ class PostsController < ApplicationController
     redirect_to post
   end
 
-  private
-
   def post_params
     params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
+end
 end
