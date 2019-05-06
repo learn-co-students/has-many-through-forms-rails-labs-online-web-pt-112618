@@ -1,1 +1,44 @@
+<h1>One Post</h1>
+<h2>Title: <%= @post.title %></h2>
+<h3>Content: <%= @post.content %></h3>
 
+<h4>Comments: </h4>
+  <% @post.comments.each do |comment| %>
+    <p><%= comment.user.username %> says: <%= comment.content %> </p>
+  <% end %>
+
+<h4>Create a new comment:</h4>
+  <%= form_for @post.comments.build do |f| %>
+  <!-- Create a comment associated with post. We set up post_id in the hidden_field -->
+  <%= f.hidden_field :post_id, value: @post.id %>
+  Comment: <br>
+  <%= f.text_area :content %><br>
+
+  <!-- Select a existing username -->
+  <p>Select username:</p>
+  <!-- Create a user associated with post. We set up post_id in the hidden_field -->
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+
+  <!-- Create a new user -->
+  <p>or create a new user</p>
+  <%= f.fields_for :user, f.object.build_user do |user_f| %>
+    <%= user_f.text_field :username  %>
+  <% end %></br>
+
+  <%= f.submit %>
+<% end %>
+
+<h4>Categories: </h4>
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+
+<h4>Username: </h4>
+<ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+</ul>
