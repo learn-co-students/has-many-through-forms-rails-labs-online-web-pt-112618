@@ -1,1 +1,28 @@
+<h1>Create a new post</h1>
 
+<%= form_for @post do |f| %>
+<p>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</p>
+
+<p>
+  <%= f.label :content %>
+  <%= f.text_field :content%><br>
+</p>
+
+<p>
+  Choose a category:<br>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
+</p>
+
+<p>
+  <!--  right now, new category not being created, but is still
+    being added to @post.categories as a duplicate  -->
+  Create a new category:<br>
+  <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
+    Name: <%= categories_fields.text_field :name %>
+  <% end %>
+</p>
+  <%= f.submit %>
+<% end %>
