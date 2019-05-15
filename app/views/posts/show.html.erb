@@ -7,10 +7,11 @@
 <%end%>
 
 <p>Comments:</p>
+<ul>
 <% @post.comments.each do |comment| %>
-  <p><%= comment.user.username %> says: <%= comment.content %></p>
+  <li><%= comment.user.username %> says: <%= comment.content %></li>
 <% end %>
-
+</ul>
 <p>Users</p>
 <ul>
 <% @post.users.uniq.each do |user| %>
