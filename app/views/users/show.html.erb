@@ -1,1 +1,5 @@
+<h1>Below are posts the user has commented on. </h1>
 
+<% @user.posts.each do |p| %>
+  <%= link_to p.title, post_path(p) %>
+<% end %>
